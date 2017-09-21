@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -37,33 +35,7 @@ public class ChipAIAnimationView extends View {
     private Neuron[][] neurons = null;
     private List<Triangle> triangles = new ArrayList<>();
     private Triangle[][] trianglesMatrix = null;
-
-
-    private int animationLat = 1;
-    private int animationIntensity = 1;
-    private Handler uiHandler = new Handler(Looper.getMainLooper());
-    private int currentPosition = 0;
-    private boolean animate = false;
-    private Runnable animationRunnable = new Runnable() {
-        @Override
-        public void run() {
-            if (!animate)
-                return;
-
-            triangles.get(currentPosition).alpha = 255;
-            for (int i = 0; i < triangles.size(); i++) {
-                if (i != currentPosition)
-                    triangles.get(i).alpha = Math.max(0, triangles.get(i).alpha - animationIntensity);
-            }
-            currentPosition++;
-
-            if (currentPosition == triangles.size()) {
-                currentPosition = 0;
-            }
-            invalidate();
-            uiHandler.postDelayed(animationRunnable, animationLat);
-        }
-    };
+    private NeuroAnimator neuroAnimator = null;
 
     public ChipAIAnimationView(Context context) {
         super(context);
@@ -108,22 +80,18 @@ public class ChipAIAnimationView extends View {
     }
 
     public void animateNeurons(boolean animate) {
-        uiHandler.removeCallbacks(animationRunnable);
-        this.animate = animate;
-        for (int i = 0; i < triangles.size(); i++) {
-            triangles.get(i).alpha = animate ? 0 : 255;
-        }
-        if (animate) {
-            uiHandler.post(animationRunnable);
-        }
+        if (neuroAnimator != null)
+            neuroAnimator.setAnimate(animate);
     }
 
     public void setAnimationLat(int animationLat) {
-        this.animationLat = Math.max(animationLat, 1);
+        if (neuroAnimator != null)
+            neuroAnimator.setAnimationLat(animationLat);
     }
 
     public void setAnimationIntensity(int animationIntensity) {
-        this.animationIntensity = Math.max(animationIntensity, 1);
+        if (neuroAnimator != null)
+            neuroAnimator.setAnimationIntensity(animationIntensity);
     }
 
     public void setCount(int count) {
@@ -189,15 +157,15 @@ public class ChipAIAnimationView extends View {
     }
 
     public int getAnimationLat() {
-        return animationLat;
+        return neuroAnimator != null ? neuroAnimator.getAnimationLat() : 1;
     }
 
     public int getAnimationIntensity() {
-        return animationIntensity;
+        return neuroAnimator != null ? neuroAnimator.getAnimationIntensity() : 1;
     }
 
     public boolean isAnimate() {
-        return animate;
+        return neuroAnimator != null && neuroAnimator.isAnimate();
     }
 
     @Override
@@ -305,33 +273,12 @@ public class ChipAIAnimationView extends View {
                 triangles.add(trianglesMatrix[j][i - j]);
             }
         }
-
-    }
-
-
-    class Neuron {
-        final int i, j;
-        final float x, y;
-        final float radius;
-
-        Neuron(int i, int j, float x, float y, float radius) {
-            this.i = i;
-            this.j = j;
-            this.x = x;
-            this.y = y;
-            this.radius = radius;
+        NeuroAnimator animator = new NeuroAnimator(triangles, trianglesMatrix, this);
+        if (neuroAnimator != null) {
+            animator.setAnimate(neuroAnimator.isAnimate());
+            animator.setAnimationIntensity(neuroAnimator.getAnimationIntensity());
+            animator.setAnimationLat(neuroAnimator.getAnimationLat());
         }
-    }
-
-    class Triangle {
-        final Neuron neuron_1, neuron_2, neuron_3;
-        boolean active = true;
-        int alpha = 255;
-
-        Triangle(Neuron neuron_1, Neuron neuron_2, Neuron neuron_3) {
-            this.neuron_1 = neuron_1;
-            this.neuron_2 = neuron_2;
-            this.neuron_3 = neuron_3;
-        }
+        neuroAnimator = animator;
     }
 }
