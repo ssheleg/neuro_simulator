@@ -100,15 +100,15 @@ public final class NeuroAnimator {
         }
 
         triangles.get(currentPosition_0).alpha = 255;
-        for (int i = 1; i < animationIntensity; i++) {
+      /*  for (int i = 1; i < animationIntensity; i++) {
             if (currentPosition_0 + i < triangles.size()) {
-                triangles.get(currentPosition_0 + i).alpha = Math.max(0, 255 - (i * animationIntensity));
+                triangles.get(currentPosition_0 + i).alpha = Math.min(255, 20 + (i * animationIntensity));
             }
             if (currentPosition_0 - i >= 0) {
-                triangles.get(currentPosition_0 - i).alpha = Math.max(0, 255 - (i * animationIntensity));
+                triangles.get(currentPosition_0 - i).alpha = Math.min(255, 20 + (i * animationIntensity));
             }
         }
-
+*/
         currentPosition_0++;
         if (currentPosition_0 == triangles.size()) {
             currentPosition_0 = 0;
