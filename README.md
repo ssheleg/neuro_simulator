@@ -1,5 +1,5 @@
 # neuro_simulator
-[![Release](https://jitpack.io/v/ssheleg/neuro_simulator.svg)]
+![Release](https://jitpack.io/v/ssheleg/neuro_simulator.svg)
 (https://jitpack.io/#ssheleg/neuro_simulator)
 
 Android simple neuro sumulation view
