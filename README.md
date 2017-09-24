@@ -7,17 +7,16 @@ Android simple neuro sumulation view. Available options: speed, colors, intensit
 Root build.gardle
 ```gradle
 allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
+	repositories {
+		maven { url 'https://jitpack.io' }
 	}
+}
 ```
 module build.gradle
 ```gradle
 dependencies {
-	        compile 'com.github.ssheleg:neuro_simulator:v1.0-release'
-	}
+	compile 'com.github.ssheleg:neuro_simulator:v1.0-release'
+}
 ``` 
 
 # image  
