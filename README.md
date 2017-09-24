@@ -11,7 +11,7 @@ allprojects {
 			...
 			maven { url 'https://jitpack.io' }
 		}
-	}]
+	}
 ```
 module build.gradle
 ```gradle
