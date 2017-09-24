@@ -1,4 +1,4 @@
-package blood.bear.test.view;
+package blood.bear.neuro.view;
 
 /**
  * Created by Blood Bear on 21-Sep-17.

@@ -1,4 +1,4 @@
-package blood.bear.test.view;
+package blood.bear.neuro.view;
 
 import android.content.Context;
 import android.graphics.Canvas;

@@ -1,10 +1,9 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
     defaultConfig {
-        applicationId "blood.bear.test"
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
@@ -19,7 +18,5 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.jaredrummler:colorpicker:1.0.1'
+    api 'com.jaredrummler:colorpicker:1.0.1'
 }
