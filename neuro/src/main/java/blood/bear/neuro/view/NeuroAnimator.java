@@ -21,6 +21,9 @@ public final class NeuroAnimator {
     private Handler uiHandler = new Handler(Looper.getMainLooper());
     private boolean animate = false;
     private int mode = 0;
+    private int accelerate = 0;
+
+    private int currentPosition = 0;
 
 
     private Runnable animationRunnable = new Runnable() {
@@ -75,6 +78,7 @@ public final class NeuroAnimator {
         this.animate = animate;
         for (int i = 0; i < triangles.size(); i++) {
             triangles.get(i).alpha = animate ? 0 : 255;
+            triangles.get(i).increment = true;
         }
         if (animate) {
             uiHandler.post(animationRunnable);
@@ -92,44 +96,33 @@ public final class NeuroAnimator {
         }
     }
 
-    private int currentPosition_0 = 0;
+    public int getAccelerate() {
+        return accelerate;
+    }
+
+    public void setAccelerate(int accelerate) {
+        this.accelerate = Math.min(0, accelerate);
+    }
 
     private void anim_0() {
         for (int i = 0; i < triangles.size(); i++) {
-            triangles.get(i).alpha = Math.max(0, triangles.get(i).alpha - animationIntensity);
+            Triangle triangle = triangles.get(i);
+            if (i == currentPosition) {
+                for (int j = currentPosition; j <= currentPosition + accelerate && j < triangles.size(); j++) {
+                    triangles.get(j).alpha = 255;
+                }
+            } else {
+                triangle.alpha = Math.max(0, triangle.alpha - animationIntensity);
+            }
         }
-
-        triangles.get(currentPosition_0).alpha = 255;
-        currentPosition_0++;
-        if (currentPosition_0 == triangles.size()) {
-            currentPosition_0 = 0;
+        currentPosition++;
+        currentPosition += accelerate;
+        if (currentPosition >= triangles.size()) {
+            currentPosition = 0;
         }
     }
 
-    private int currentPosition_1 = 0;
-
     private void anim_1() {
-        trianglesMatrix[currentPosition_1][currentPosition_1].alpha = 255;
-        if (currentPosition_1 + 1 < trianglesMatrix.length) {
-            trianglesMatrix[currentPosition_1 + 1][currentPosition_1].alpha = 128;
-            trianglesMatrix[currentPosition_1][currentPosition_1 + 1].alpha = 128;
-        }
-        for (int i = 0; i < trianglesMatrix.length; i++) {
-            for (int j = 0; j < trianglesMatrix.length; j++) {
-                trianglesMatrix[i][j].alpha = Math.max(0, trianglesMatrix[i][j].alpha - animationIntensity);
-                if (i + 1 < trianglesMatrix.length) {
-                    trianglesMatrix[i + 1][j].alpha = Math.max(0, trianglesMatrix[i + 1][j].alpha - animationIntensity);
-                }
-                if (j + 1 < trianglesMatrix.length) {
-                    trianglesMatrix[i][j + 1].alpha = Math.max(0, trianglesMatrix[i][j + 1].alpha - animationIntensity);
-                }
-            }
-        }
-        currentPosition_1++;
-
-        if (currentPosition_1 == trianglesMatrix.length) {
-            currentPosition_1 = 0;
-        }
     }
 
 

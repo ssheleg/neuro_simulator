@@ -32,6 +32,11 @@ public class ChipAIAnimationView extends View {
     private float rootWidth, rootHeigth;
     private float fieldSizeX, fieldSizeY;
 
+    private boolean animating = false;
+    private int animationIntensity = -1;
+    private int animationLat = -1;
+    private int animationAccelerate = -1;
+
     private Neuron[][] neurons = null;
     private List<Triangle> triangles = new ArrayList<>();
     private Triangle[][] trianglesMatrix = null;
@@ -80,18 +85,27 @@ public class ChipAIAnimationView extends View {
     }
 
     public void animateNeurons(boolean animate) {
+        this.animating = animate;
         if (neuroAnimator != null)
             neuroAnimator.setAnimate(animate);
     }
 
     public void setAnimationLat(int animationLat) {
+        this.animationLat = animationLat;
         if (neuroAnimator != null)
             neuroAnimator.setAnimationLat(animationLat);
     }
 
     public void setAnimationIntensity(int animationIntensity) {
+        this.animationIntensity = animationIntensity;
         if (neuroAnimator != null)
             neuroAnimator.setAnimationIntensity(animationIntensity);
+    }
+
+    public void setAnimationAccelerate(int animationAccelerate) {
+        this.animationAccelerate = animationAccelerate;
+        if (neuroAnimator != null)
+            neuroAnimator.setAccelerate(animationAccelerate);
     }
 
     public void setCount(int count) {
@@ -278,6 +292,14 @@ public class ChipAIAnimationView extends View {
             animator.setAnimate(neuroAnimator.isAnimate());
             animator.setAnimationIntensity(neuroAnimator.getAnimationIntensity());
             animator.setAnimationLat(neuroAnimator.getAnimationLat());
+        } else {
+            if (animationIntensity != -1)
+                animator.setAnimationIntensity(animationIntensity);
+            if (animationLat != -1)
+                animator.setAnimationLat(animationLat);
+            if (animationAccelerate != -1)
+                animator.setAccelerate(animationAccelerate);
+            animator.setAnimate(animating);
         }
         neuroAnimator = animator;
     }
