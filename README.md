@@ -1,4 +1,5 @@
 # neuro_simulator
+Latest version:
 ![Release](https://jitpack.io/v/ssheleg/neuro_simulator.svg)
 
 Android simple neuro sumulation view. Available options: speed, colors, intensity, count of neurons and many other.
@@ -15,7 +16,7 @@ allprojects {
 module build.gradle
 ```gradle
 dependencies {
-	compile 'com.github.ssheleg:neuro_simulator:v1.0-release'
+	compile 'com.github.ssheleg:neuro_simulator:1.0.1'
 }
 ``` 
 
