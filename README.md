@@ -16,7 +16,7 @@ allprojects {
 module build.gradle
 ```gradle
 dependencies {
-	compile 'com.github.ssheleg:neuro_simulator:1.0.1'
+	compile 'com.github.ssheleg:neuro_simulator:1.0.2'
 }
 ``` 
 
