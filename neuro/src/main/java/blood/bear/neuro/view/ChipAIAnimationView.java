@@ -44,17 +44,17 @@ public class ChipAIAnimationView extends View {
 
     public ChipAIAnimationView(Context context) {
         super(context);
-        init(Color.BLACK, Color.CYAN, Color.CYAN, 13, 0.3f, 1f);
+        init(Color.BLACK, Color.CYAN, Color.CYAN, 13, 0.4f, 1f);
     }
 
     public ChipAIAnimationView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init(Color.BLACK, Color.CYAN, Color.CYAN, 13, 0.3f, 1f);
+        init(Color.BLACK, Color.CYAN, Color.CYAN, 13, 0.4f, 1f);
     }
 
     public ChipAIAnimationView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(Color.BLACK, Color.CYAN, Color.CYAN, 13, 0.3f, 1f);
+        init(Color.BLACK, Color.CYAN, Color.CYAN, 13, 0.4f, 1f);
     }
 
     public void init(int colorBg, int colorNeuron, int colorLine, int count, float radius, float lineWidth) {
@@ -206,7 +206,7 @@ public class ChipAIAnimationView extends View {
         super.onDraw(canvas);
         if (neurons == null || neurons.length == 0)
             return;
-        Log.i("AI_BB", "colorBg=" + colorBg + " colorNeuron=" + colorNeuron + " colorLine=" + colorLine
+        Log.d("AI_BB", "colorBg=" + colorBg + " colorNeuron=" + colorNeuron + " colorLine=" + colorLine
                 + " count=" + count + " radius=" + radius + " lineWidth=" + lineWidth);
         canvas.drawColor(colorBg);
         canvas.translate(-fieldSizeX, -fieldSizeY);

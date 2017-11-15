@@ -4,7 +4,7 @@ group = 'com.github.ssheleg'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion "26.0.2"
 
     defaultConfig {
         minSdkVersion 16
@@ -12,6 +12,10 @@ android {
         versionCode 1
         versionName "1.0.2"
         consumerProguardFiles 'proguard-rules.pro'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
